@@ -1,17 +1,10 @@
-<!-- index.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Highway Patrol Edit</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+<body onclick="document.getElementById('track').play()">
   <div class="container">
     <h1>HIGHWAY PATROL</h1>
-    <p>starting edit...</p>
+    <p>click anywhere to start</p>
   </div>
+
+  <audio id="track" src="highway-patrol.mp3" autoplay></audio>
 
   <script>
     const scenes = [
@@ -39,4 +32,3 @@
     }, 200);
   </script>
 </body>
-</html>
