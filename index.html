@@ -22,7 +22,7 @@
 <body>
   <div id="startScreen">
     <h1>HIGHWAY PATROL BY KQUNIX</h1>
-    <button id="startBtn">Start Edit</button>
+    <button id="startBtn">start</button>
   </div>
 
   <audio id="track" src="audio/highway-patrol.mp3"></audio>
@@ -34,32 +34,46 @@
     const audio = document.getElementById('track');
     const iframe = document.getElementById('scene');
     let current = '';
+
     btn.onclick = async () => {
-      await audio.play();
-      screen.style.display = 'none';
-      const scenes = [
-        { t:0, url:'scenes/intro.html' },
-        { t:17, url:'scenes/scene1.html' },
-        { t:25, url:'scenes/scene2.html' },
-        { t:33, url:'scenes/scene3.html' },
-        { t:41, url:'scenes/scene4.html' },
-        { t:49, url:'scenes/scene5.html' },
-        { t:56, url:'scenes/scene6.html' },
-        { t:64, url:'scenes/scene7.html' },
-        { t:72, url:'scenes/scene8.html' },
-        { t:84, url:'scenes/outro.html' },
-      ];
-      audio.ontimeupdate = () => {
-        const t = audio.currentTime;
-        let next = scenes[scenes.length-1].url;
-        for (let i=scenes.length-1; i>=0; i--) {
-          if (t >= scenes[i].t) { next = scenes[i].url; break; }
-        }
-        if (next !== current) {
-          iframe.src = next;
-          current = next;
-        }
-      };
+      try {
+        await audio.play();
+        console.log("Аудио успешно запущено");
+        screen.style.display = 'none';
+
+        const scenes = [
+          { t:0, url:'scenes/intro.html' },
+          { t:17, url:'scenes/scene1.html' },
+          { t:25, url:'scenes/scene2.html' },
+          { t:33, url:'scenes/scene3.html' },
+          { t:41, url:'scenes/scene4.html' },
+          { t:49, url:'scenes/scene5.html' },
+          { t:56, url:'scenes/scene6.html' },
+          { t:64, url:'scenes/scene7.html' },
+          { t:72, url:'scenes/scene8.html' },
+          { t:84, url:'scenes/outro.html' },
+        ];
+
+        audio.ontimeupdate = () => {
+          const t = audio.currentTime;
+          let next = scenes[scenes.length-1].url;
+          for (let i = scenes.length - 1; i >= 0; i--) {
+            if (t >= scenes[i].t) {
+              next = scenes[i].url;
+              break;
+            }
+          }
+          if (next !== current) {
+            iframe.src = next;
+            current = next;
+            console.log("Переключено на сцену:", current);
+          }
+        };
+
+      } catch (e) {
+        alert("Ошибка при воспроизведении аудио: " + e.message);
+        console.error("Ошибка аудио:", e);
+      }
     };
   </script>
 </body>
