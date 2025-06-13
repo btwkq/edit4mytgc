@@ -1,0 +1,42 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Highway Patrol Edit</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>HIGHWAY PATROL</h1>
+    <p>starting edit...</p>
+  </div>
+
+  <script>
+    const scenes = [
+      { time: 0, url: 'scenes/intro.html' },
+      { time: 17, url: 'scenes/scene1.html' },
+      { time: 25, url: 'scenes/scene2.html' },
+      { time: 33, url: 'scenes/scene3.html' },
+      { time: 41, url: 'scenes/scene4.html' },
+      { time: 49, url: 'scenes/scene5.html' },
+      { time: 56, url: 'scenes/scene6.html' },
+      { time: 64, url: 'scenes/scene7.html' },
+      { time: 72, url: 'scenes/scene8.html' },
+      { time: 84, url: 'scenes/outro.html' },
+    ];
+
+    let current = 0;
+    const startTime = Date.now();
+
+    setInterval(() => {
+      const elapsed = (Date.now() - startTime) / 1000;
+      if (current < scenes.length - 1 && elapsed >= scenes[current + 1].time) {
+        current++;
+        window.location.href = scenes[current].url;
+      }
+    }, 200);
+  </script>
+</body>
+</html>
