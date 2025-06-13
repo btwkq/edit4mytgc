@@ -1,55 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Highway Patrol Edit by kqunix <3</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>tg: kqunixbtw 🤍</title>
   <style>
-    body {
-      margin: 0;
-      overflow: hidden;
+    body { margin:0; overflow:hidden; font-family:Arial,sans-serif; background:black; color:white; }
+    #startScreen {
+      position:absolute; top:0; left:0; width:100vw; height:100vh;
+      display:flex; flex-direction:column; justify-content:center; align-items:center;
+      background:black; z-index:10;
     }
-
-    iframe {
-      width: 100vw;
-      height: 100vh;
-      border: none;
-      display: block;
+    #startScreen h1 { font-size:3rem; margin-bottom:1rem; }
+    #startBtn {
+      padding:10px 20px; font-size:1.2rem;
+      background:white;color:black;border:none;border-radius:5px;
+      cursor:pointer;
     }
   </style>
 </head>
 <body>
-  <!-- Аудио трек -->
-  <audio id="track" src="audio/highway-patrol.mp3" autoplay></audio>
+  <div id="startScreen">
+    <h1>HIGHWAY PATROL BY KQUNIX</h1>
+    <button id="startBtn">Start Edit</button>
+  </div>
 
-  <!-- Область для сцен -->
-  <iframe id="scene" src="scenes/scene1.html"></iframe>
+  <audio id="track" src="audio/highway-patrol.mp3"></audio>
+  <iframe id="scene" src="" style="width:100vw;height:100vh;border:none;"></iframe>
 
   <script>
-    const track = document.getElementById('track');
-    const scene = document.getElementById('scene');
-    let lastScene = '';
-
-    track.ontimeupdate = () => {
-      const t = track.currentTime;
-
-      let current = '';
-      if (t < 17) {
-        current = 'scenes/intro.html';
-      } else if (t >= 17 && t < 25) {
-        current = 'scenes/scene1.html';
-      } else if (t >= 25 && t < 84) {
-        current = 'scenes/scene2.html';
-      } else if (t >= 84 && t < 101) {
-        current = 'scenes/outro.html';
-      } else {
-        current = 'scenes/end.html';
-      }
-
-      if (current !== lastScene) {
-        scene.src = current;
-        lastScene = current;
-      }
+    const btn = document.getElementById('startBtn');
+    const screen = document.getElementById('startScreen');
+    const audio = document.getElementById('track');
+    const iframe = document.getElementById('scene');
+    let current = '';
+    btn.onclick = async () => {
+      await audio.play();
+      screen.style.display = 'none';
+      const scenes = [
+        { t:0, url:'scenes/intro.html' },
+        { t:17, url:'scenes/scene1.html' },
+        { t:25, url:'scenes/scene2.html' },
+        { t:33, url:'scenes/scene3.html' },
+        { t:41, url:'scenes/scene4.html' },
+        { t:49, url:'scenes/scene5.html' },
+        { t:56, url:'scenes/scene6.html' },
+        { t:64, url:'scenes/scene7.html' },
+        { t:72, url:'scenes/scene8.html' },
+        { t:84, url:'scenes/outro.html' },
+      ];
+      audio.ontimeupdate = () => {
+        const t = audio.currentTime;
+        let next = scenes[scenes.length-1].url;
+        for (let i=scenes.length-1; i>=0; i--) {
+          if (t >= scenes[i].t) { next = scenes[i].url; break; }
+        }
+        if (next !== current) {
+          iframe.src = next;
+          current = next;
+        }
+      };
     };
   </script>
 </body>
