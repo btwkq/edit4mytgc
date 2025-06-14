@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>tg: kqunixbtw 🤍</title>
+  <title>Scene 1</title>
   <style>
     body {
       margin: 0;
@@ -43,21 +43,27 @@
     const line2 = document.getElementById('line2');
     let shown1 = false;
     let shown2 = false;
+    let sceneChanged = false;
+
+    function showLine(el) {
+      el.classList.add('show');
+    }
 
     audio.addEventListener('timeupdate', () => {
       const current = audio.currentTime;
 
       if (current >= 17 && !shown1) {
-        line1.classList.add('show');
+        showLine(line1);
         shown1 = true;
       }
 
       if (current >= 21 && !shown2) {
-        line2.classList.add('show');
+        showLine(line2);
         shown2 = true;
       }
 
-      if (current >= 25) {
+      if (current >= 25 && !sceneChanged) {
+        sceneChanged = true;
         window.location.href = "scene2.html";
       }
     });
