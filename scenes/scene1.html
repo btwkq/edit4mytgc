@@ -22,9 +22,8 @@
     .line {
       font-size: 2rem;
       opacity: 0;
-      position: relative;
+      position: absolute;
       transition: opacity 0.5s ease;
-      z-index: 1;
     }
 
     .show {
@@ -42,12 +41,13 @@
     const audio = document.getElementById('music');
     const line1 = document.getElementById('line1');
     const line2 = document.getElementById('line2');
+
     let shown1 = false;
     let shown2 = false;
     let sceneChanged = false;
 
     function showLine(el) {
-      el.style.opacity = '1';
+      el.classList.add('show');
     }
 
     audio.addEventListener('timeupdate', () => {
