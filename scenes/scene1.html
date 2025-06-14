@@ -21,33 +21,45 @@
     .line {
       font-size: 2rem;
       opacity: 0;
-      animation: fadeIn 1s ease forwards;
+      position: absolute;
+      transition: opacity 0.5s ease;
     }
 
-    .line:nth-child(1) {
-      animation-delay: 0s;
-    }
-
-    .line:nth-child(2) {
-      animation-delay: 4s; /* Появление на 00:21, если сцена началась с 00:17 */
-    }
-
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
+    .show {
+      opacity: 1;
     }
   </style>
 </head>
 <body>
-  <div class="line">Tryna tell me something, I don't listen</div>
-  <div class="line">I don't pay attention to these children</div>
+  <audio id="music" src="Highway_Patrol.mp3" autoplay></audio>
+
+  <div id="line1" class="line">Tryna tell me something, I don't listen</div>
+  <div id="line2" class="line">I don't pay attention to these children</div>
 
   <script>
-    // Переход на следующую сцену через 8 секунд
-    setTimeout(() => {
-      window.location.href = "scene2.html";
-    }, 8000);
+    const audio = document.getElementById('music');
+    const line1 = document.getElementById('line1');
+    const line2 = document.getElementById('line2');
+    let shown1 = false;
+    let shown2 = false;
+
+    audio.addEventListener('timeupdate', () => {
+      const current = audio.currentTime;
+
+      if (current >= 17 && !shown1) {
+        line1.classList.add('show');
+        shown1 = true;
+      }
+
+      if (current >= 21 && !shown2) {
+        line2.classList.add('show');
+        shown2 = true;
+      }
+
+      if (current >= 25) {
+        window.location.href = "scene2.html";
+      }
+    });
   </script>
 </body>
 </html>
